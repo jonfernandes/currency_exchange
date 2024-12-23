@@ -1,5 +1,9 @@
 import streamlit as st
 import requests
+from dotenv import load_dotenv
+import os
+
+load_dotenv(".env")
 
 # Title for the Streamlit app
 st.title('Currency Converter')
@@ -8,13 +12,13 @@ st.title('Currency Converter')
 amount_gbp = st.number_input('Enter amount in GBP:', min_value=0.0, format="%.2f")
 
 # Dropdown for selecting the target currency
-target_currency = st.selectbox('Convert to:', ['USD', 'CAD', 'EUR', 'SGP'])
+target_currency = st.selectbox('Convert to:', ['USD', 'CAD', 'EUR', 'SGD'])
 
 # Button to initiate conversion
 if st.button('Submit'):
     if amount_gbp > 0:
         # ExchangeRate-API endpoint and parameters
-        api_key = '1832092e38aee61bc2f181a9'  # Replace with your actual ExchangeRate-API key
+        api_key = os.getenv("EXCHANGE_API", "Replace with your actual ExchangeRate-API key")
         api_url = f'https://v6.exchangerate-api.com/v6/{api_key}/latest/GBP'
 
         try:
