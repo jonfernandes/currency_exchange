@@ -23,7 +23,7 @@ MODEL_NAME = "gpt-4o"
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 # Streamlit app title
-st.title("Currency Converter")
+st.title("Money changer")
 
 # Text input for user to enter data or currency
 user_input = st.text_input("Enter the amount and currency (e.g., '100 USD to EUR'):")
