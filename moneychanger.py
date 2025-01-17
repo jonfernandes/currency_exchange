@@ -8,8 +8,17 @@ import json
 from openai import OpenAI
 from langsmith import traceable
 
+from azure.ai.inference import ChatCompletionsClient
+from azure.core.credentials import AzureKeyCredential
+
+
 # Load environment variables from .env file
 load_dotenv()
+
+client = ChatCompletionsClient(
+    endpoint=os.environ["ENDPOINT"],
+    credential=AzureKeyCredential(os.environ["OPENAI_API_KEY"]),
+)
 
 # Amazon Currency Converter API URL (replace with the actual API URL if needed)
 EXCHANGE_API = "https://api.exchangerate-api.com/v4/latest/USD"
@@ -19,12 +28,13 @@ os.environ["LANGCHAIN_TRACING_V2"] = "true"
 os.environ["LANGCHAIN_PROJECT"] = "streamlit-moneychanger"
 MODEL_PROVIDER = "openai"
 MODEL_NAME = "gpt-4o"
+MODEL_NAME = "4o-miniJF"
 
 
 endpoint = os.environ["ENDPOINT"]
 OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
 
-client = OpenAI(api_key=OPENAI_API_KEY)
+#client = OpenAI(api_key=OPENAI_API_KEY)
 # Streamlit app title
 st.title("Multilingual Money Changer")
 
