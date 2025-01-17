@@ -8,6 +8,9 @@ import json
 from openai import OpenAI
 from langsmith import traceable
 
+from azure.ai.inference import ChatCompletionsClient
+from azure.ai.inference.models import SystemMessage, UserMessage
+from azure.core.credentials import AzureKeyCredential
 
 # Load environment variables from .env file
 load_dotenv()
@@ -21,7 +24,17 @@ os.environ["LANGCHAIN_PROJECT"] = "streamlit-moneychanger"
 MODEL_PROVIDER = "openai"
 MODEL_NAME = "gpt-4o"
 
-client = OpenAI(api_key=OPENAI_API_KEY)
+
+endpoint = os.environ["ENDPOINT"]
+OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
+
+
+client = ChatCompletionsClient(
+    endpoint=endpoint,
+    credential=AzureKeyCredential(OPENAI_API_KEY),
+)
+
+#client = OpenAI(api_key=OPENAI_API_KEY)
 # Streamlit app title
 st.title("Multilingual Money Changer")
 
